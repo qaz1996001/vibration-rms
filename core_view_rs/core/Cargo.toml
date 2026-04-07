@@ -1,0 +1,13 @@
+[package]
+name = "core-view-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ndarray = "0.16"
+ndarray-stats = "0.6"
+num-complex = "0.4"
+realfft = "3.4"
+
+[dev-dependencies]
+serde_json = "1"

@@ -1,0 +1,64 @@
+# ─── Rust ──────────────────────────────────────────────────────────
+target/
+**/*.rs.bk
+*.pdb
+
+# ─── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.dylib
+
+# venvs
+.venv/
+venv/
+ENV/
+env/
+
+# build artifacts
+*.egg-info/
+build/
+dist/
+wheels/
+*.whl
+
+# tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ─── Node.js ───────────────────────────────────────────────────────
+node_modules/
+*.tsbuildinfo
+.npm/
+
+# napi-rs native binaries (per-platform, not source)
+*.node
+
+# ─── Secrets / env ─────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── IDE / Editor ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+
+# ─── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Logs / temp ───────────────────────────────────────────────────
+*.log
+*.tmp
+
+# ─── Claude Code (local-only settings) ─────────────────────────────
+.claude/settings.local.json
