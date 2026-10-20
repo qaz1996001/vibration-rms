@@ -1,5 +1,5 @@
 [package]
-name = "core-view-node"
+name = "vibration-rms-node"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-core-view-core = { path = "../core" }
+vibration-rms-core = { path = "../core" }
 napi = { version = "2", features = ["default"] }
 napi-derive = "2"
 

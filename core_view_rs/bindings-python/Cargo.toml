@@ -1,13 +1,13 @@
 [package]
-name = "core-view-python"
+name = "vibration-rms-python"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "core_view"
+name = "vibration_rms"
 crate-type = ["cdylib"]
 
 [dependencies]
-core-view-core = { path = "../core" }
+vibration-rms-core = { path = "../core" }
 pyo3 = { version = "0.23", features = ["extension-module"] }
 numpy = "0.23"

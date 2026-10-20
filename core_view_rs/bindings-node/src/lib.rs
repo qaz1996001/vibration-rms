@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate napi_derive;
 
-use core_view_core as core;
+use vibration_rms_core as core;
 
 #[napi]
 fn acceleration_rms(

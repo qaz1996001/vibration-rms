@@ -39,36 +39,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "core-view-core"
-version = "0.1.0"
-dependencies = [
- "ndarray",
- "ndarray-stats",
- "num-complex",
- "realfft",
- "serde_json",
-]
-
-[[package]]
-name = "core-view-node"
-version = "0.1.0"
-dependencies = [
- "core-view-core",
- "napi",
- "napi-build",
- "napi-derive",
-]
-
-[[package]]
-name = "core-view-python"
-version = "0.1.0"
-dependencies = [
- "core-view-core",
- "numpy",
- "pyo3",
-]
-
-[[package]]
 name = "ctor"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -644,6 +614,36 @@ name = "unindent"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7264e107f553ccae879d21fbea1d6724ac785e8c3bfc762137959b5802826ef3"
+
+[[package]]
+name = "vibration-rms-core"
+version = "0.1.0"
+dependencies = [
+ "ndarray",
+ "ndarray-stats",
+ "num-complex",
+ "realfft",
+ "serde_json",
+]
+
+[[package]]
+name = "vibration-rms-node"
+version = "0.1.0"
+dependencies = [
+ "napi",
+ "napi-build",
+ "napi-derive",
+ "vibration-rms-core",
+]
+
+[[package]]
+name = "vibration-rms-python"
+version = "0.1.0"
+dependencies = [
+ "numpy",
+ "pyo3",
+ "vibration-rms-core",
+]
 
 [[package]]
 name = "wasi"

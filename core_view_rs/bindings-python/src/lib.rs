@@ -2,7 +2,7 @@ use numpy::{PyArray1, PyReadonlyArray1};
 use pyo3::prelude::*;
 use pyo3::types::PyDict;
 
-use core_view_core::{self as core};
+use vibration_rms_core::{self as core};
 
 #[pyfunction]
 #[pyo3(signature = (data, sampling_rate, freq_lower_bound=10.0, freq_upper_bound=1000.0))]
@@ -158,7 +158,7 @@ fn both_features<'py>(
 }
 
 #[pymodule]
-fn core_view(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn vibration_rms(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(acceleration_rms, m)?)?;
     m.add_function(wrap_pyfunction!(acceleration_rms2, m)?)?;
     m.add_function(wrap_pyfunction!(get_fft_abs_data, m)?)?;
