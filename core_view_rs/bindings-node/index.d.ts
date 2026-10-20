@@ -6,5 +6,12 @@
 export declare function accelerationRms(data: Array<number>, samplingRate: number, freqLowerBound?: number | undefined | null, freqUpperBound?: number | undefined | null): Array<number>
 export declare function accelerationRms2(data: Array<number>, samplingRate: number, freqLowerBound?: number | undefined | null, freqUpperBound?: number | undefined | null): Array<number>
 export declare function getFftAbsData(data: Array<number>, samplingRate: number): Array<Array<number>>
-export declare function timeDomainFeatures(signal: Array<number>): Array<number>
-export declare function freqDomainFeatures(pl: Array<number>, f: Array<number>): Array<number>
+export declare function timeDomainFeatures(signal: Array<number>, features?: Array<string> | undefined | null): Array<number>
+export declare function freqDomainFeatures(pl: Array<number>, f: Array<number>, features?: Array<string> | undefined | null): Array<number>
+export interface BothFeaturesResult {
+  timeDomainFeature: Array<number>
+  freqDomainFeature: Array<number>
+  axis: string
+  createTime: string
+}
+export declare function bothFeatures(signal: Array<number>, pl: Array<number>, f: Array<number>, axis: string, createTime: string, timeFeatures?: Array<string> | undefined | null, freqFeatures?: Array<string> | undefined | null): BothFeaturesResult

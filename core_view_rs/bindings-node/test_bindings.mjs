@@ -145,6 +145,83 @@ test('end-to-end freq features from Rust FFT', () => {
   assertArrayClose(fd, GOLDEN.freq_domain_features, 'freq_domain_e2e', 1e-4);
 });
 
+// selective time_domain_features
+
+test('timeDomainFeatures selective matches golden subset', () => {
+  const full = native.timeDomainFeatures(SIGNAL);
+  const selected = native.timeDomainFeatures(SIGNAL, ['rms', 'kurtosis', 'max']);
+  assert.equal(selected.length, 3, 'should return 3 features');
+  // rms is index 5, kurtosis is 8, max is 0 in the full array (Lei et al. ordering)
+  assertClose(selected[0], full[5], 'rms');
+  assertClose(selected[1], full[8], 'kurtosis');
+  assertClose(selected[2], full[0], 'max');
+});
+
+test('timeDomainFeatures paper IDs equal English names', () => {
+  const byName = native.timeDomainFeatures(SIGNAL, ['rms', 'kurtosis']);
+  const byId = native.timeDomainFeatures(SIGNAL, ['t4', 't7']);
+  assertArrayClose(byName, byId, 'rms+kurtosis vs t4+t7');
+});
+
+test('timeDomainFeatures invalid name throws', () => {
+  assert.throws(() => {
+    native.timeDomainFeatures(SIGNAL, ['nonexistent']);
+  }, /Unknown time-domain feature/);
+});
+
+// selective freq_domain_features
+
+test('freqDomainFeatures selective matches golden subset', () => {
+  const [fftAbs, freqs] = native.getFftAbsData(SIGNAL, SR);
+  const full = native.freqDomainFeatures(fftAbs, freqs);
+  const selected = native.freqDomainFeatures(fftAbs, freqs, ['centroid', 'mean']);
+  assert.equal(selected.length, 2, 'should return 2 features');
+  // centroid is index 4, mean is 0
+  assertClose(selected[0], full[4], 'centroid');
+  assertClose(selected[1], full[0], 'mean');
+});
+
+test('freqDomainFeatures paper IDs equal English names', () => {
+  const [fftAbs, freqs] = native.getFftAbsData(SIGNAL, SR);
+  const byName = native.freqDomainFeatures(fftAbs, freqs, ['centroid']);
+  const byId = native.freqDomainFeatures(fftAbs, freqs, ['f16']);
+  assertArrayClose(byName, byId, 'centroid vs f16');
+});
+
+// both_features
+
+test('bothFeatures returns combined result', () => {
+  const [fftAbs, freqs] = native.getFftAbsData(SIGNAL, SR);
+  const result = native.bothFeatures(SIGNAL, fftAbs, freqs, 'X', '2026-03-18T00:00:00');
+  assert.equal(result.timeDomainFeature.length, 13, 'should have 13 time-domain features');
+  assert.equal(result.freqDomainFeature.length, 12, 'should have 12 freq-domain features');
+  assert.equal(result.axis, 'X');
+  assert.equal(result.createTime, '2026-03-18T00:00:00');
+});
+
+test('bothFeatures selective', () => {
+  const [fftAbs, freqs] = native.getFftAbsData(SIGNAL, SR);
+  const result = native.bothFeatures(
+    SIGNAL, fftAbs, freqs,
+    'Y', '2026-03-18T12:00:00',
+    ['rms', 'max'],
+    ['centroid']
+  );
+  assert.equal(result.timeDomainFeature.length, 2, 'should have 2 selected time-domain features');
+  assert.equal(result.freqDomainFeature.length, 1, 'should have 1 selected freq-domain feature');
+  assert.equal(result.axis, 'Y');
+  assert.equal(result.createTime, '2026-03-18T12:00:00');
+});
+
+test('bothFeatures matches standalone calls', () => {
+  const [fftAbs, freqs] = native.getFftAbsData(SIGNAL, SR);
+  const both = native.bothFeatures(SIGNAL, fftAbs, freqs, 'Z', '2026-03-18T18:00:00');
+  const td = native.timeDomainFeatures(SIGNAL);
+  const fd = native.freqDomainFeatures(fftAbs, freqs);
+  assertArrayClose(both.timeDomainFeature, td, 'bothFeatures.td vs standalone');
+  assertArrayClose(both.freqDomainFeature, fd, 'bothFeatures.fd vs standalone');
+});
+
 // ─── Runner ──────────────────────────────────────────────────────────
 
 let passed = 0;
