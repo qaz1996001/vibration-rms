@@ -1,7 +1,7 @@
 """
 Cross-validation tests for the PyO3 Python bindings.
 
-Validates that the Rust-backed `core_view` module produces results
+Validates that the Rust-backed `vibration_rms` module produces results
 matching the original Python (NumPy/SciPy) implementation via golden data.
 """
 
@@ -13,7 +13,7 @@ import numpy as np
 import numpy.testing as npt
 
 # Import the Rust-backed module
-import core_view
+import vibration_rms
 
 GOLDEN_PATH = os.path.join(os.path.dirname(__file__), '..', 'scripts', 'golden_data.json')
 
